@@ -3,15 +3,18 @@
 **Series:** Embedded Daily  
 **Project Number:** 1  
 **Author:** Kenneth Rodney Aboué  
-**Date:** YYYY-MM-DD  
+**Date:** 2025-11-04   
 
 ---
 
 ## Overview
 This project is part of the **Embedded Daily** series, where I showcase daily embedded systems and electronics projects using Arduino, Raspberry Pi, and other microcontrollers.
 
-**Project Description:**  
-Briefly describe what the project does. Example:  
+## 📅 Projects List
+
+### 🧊 1. Temperature Control System
+**Date:** 2025-11-04  
+**Description:**   
 > This project monitors temperature and humidity using a DHT11 sensor and displays the values on a 16x2 LCD. Two LEDs indicate if the temperature is too low (blue) or too high (red), demonstrating a simple embedded control system with hysteresis.
 
 ---
@@ -40,33 +43,28 @@ Briefly describe what the project does. Example:
 - Implement hysteresis to avoid flickering
 - Demonstrate embedded system control logic
 
----
+### 🚗 2. UltraBarrier – Ultrasonic Vehicle Detection Gate
+**Date:** 2025-11-05  
+**Description:**  
+> An automatic barrier system using an **ultrasonic sensor** to detect approaching vehicles or objects.  
+When a vehicle is detected within a specific distance, an LED blinks and a servo motor lifts the barrier. Once the vehicle passes, the barrier returns to its initial position.
 
-## Usage
-1. Upload the `.ino` file to your Arduino.  
-2. Connect the hardware as described above.  
-3. Observe the LCD display and LED indicators reacting to temperature changes.  
+**Hardware:**
+- Arduino Uno  
+- HC-SR04 ultrasonic sensor  
+- Servo motor  
+- LED + resistor  
+- Breadboard and jumper wires  
 
----
+**Features:**
+- Real-time distance measurement  
+- LED alert for object detection  
+- Automatic barrier control with servo motor  
 
-## Project Files
-- `ProjectName.ino` – Main Arduino sketch
-- Optional: Photos, schematics, diagrams
-- `README.md` – Project documentation
-
----
-
-## Notes
-- Adjust `TEMP_LOW` and `TEMP_HIGH` constants according to your environment.  
-- Ensure proper resistors are used for LEDs to prevent damage.  
-- This template can be reused for every project in the **Embedded Daily** series.
 
 ---
 
-## Video / Demo
-Attach a short video or GIF demonstrating the project in action.  
-
----
-
-## License
-Optional: Specify license if you want, e.g. MIT License.
+## 🧰 How to Use
+1. Clone this repository:  
+   ```bash
+   git clone https://github.com/rodneyaboue/Embedded-Daily.git
