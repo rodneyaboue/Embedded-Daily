@@ -61,6 +61,25 @@ When a vehicle is detected within a specific distance, an LED blinks and a servo
 - LED alert for object detection  
 - Automatic barrier control with servo motor  
 
+### ⚡ 3. ReactionRacer – Real-Time Reaction Timer with Joystick and LCD
+**Date:** 2025-11-05  
+**Description:**  
+> A reaction speed game that measures how fast a user can press a **joystick button** after the green light appears.  
+The **LCD screen** displays a live timer counting up, and shows the player’s reaction time in milliseconds once the button is pressed.
+
+**Hardware:**
+- Arduino Uno  
+- Joystick module (button only)  
+- 3 LEDs (Red, Orange, Green)  
+- 16x2 LCD display  
+- Resistors + jumper wires + breadboard  
+
+**Features:**
+- Sequential LED signals (Red → Orange → Green)  
+- Live countdown timer displayed on LCD  
+- Real-time reaction measurement  
+- Anti-rebound button handling  
+- Randomized delay to avoid anticipation
 
 ---
 
