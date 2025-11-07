@@ -23,11 +23,11 @@ int distance;
 
 unsigned long previousBlink = 0;
 bool greenState = false;
-
 unsigned long previousBeep = 0;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(9600);       // Communication avec Processing
+  delay(1000);              // Donne le temps à Processing de se connecter
 
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
@@ -51,7 +51,8 @@ void loop() {
 
   distance = getDistance();
   displayLCD(distance);
-  displaySerial(distance);
+  // displaySerial(distance);
+  sendToProcessing(distance); // <-- envoi correct du format angle,distance.
 
   // --- Gestion LED verte clignotante ---
   unsigned long now = millis();
@@ -62,9 +63,7 @@ void loop() {
       digitalWrite(LED_GREEN, greenState ? HIGH : LOW);
 
       // Bip doux à chaque clignotement
-      if (greenState) {
-        tone(BUZZER, 400, 80); // non-bloquant
-      }
+      if (greenState) tone(BUZZER, 400, 80);
     }
     digitalWrite(LED_RED, LOW);
   }
@@ -73,12 +72,12 @@ void loop() {
   if (distance > 0 && distance <= DANGER_DIST) {
     digitalWrite(LED_RED, HIGH);
     digitalWrite(LED_GREEN, LOW);
-    tone(BUZZER, 1000); // son continu jusqu'à sortie de danger
+    tone(BUZZER, 1000); // son continu
   } else if (!(greenState && distance > DANGER_DIST)) {
-    noTone(BUZZER); // stop bip continu si pas de danger
+    noTone(BUZZER);
   }
 
-  delay(SERVO_STEP_DELAY); // vitesse constante du servo
+  delay(SERVO_STEP_DELAY);
 }
 
 // Mesure distance HC-SR04
@@ -89,7 +88,7 @@ int getDistance() {
   delayMicroseconds(10);
   digitalWrite(TRIG_PIN, LOW);
 
-  duration = pulseIn(ECHO_PIN, HIGH, 20000); // timeout 20ms
+  duration = pulseIn(ECHO_PIN, HIGH, 20000);
   if (duration == 0) return -1;
   return duration * 0.034 / 2;
 }
@@ -107,13 +106,23 @@ void displayLCD(int d) {
   else lcd.print("Zone securisee");
 }
 
-// Affichage sur Serial
+// Affichage console série
 void displaySerial(int d) {
-  Serial.print("Angle: "); Serial.print(currentAngle);
-  Serial.print(" | Distance: ");
-  if (d < 0) Serial.print("No echo");
-  else Serial.print(d);
-  Serial.print(" cm | Objet detecte: ");
-  if (d > 0 && d <= DANGER_DIST) Serial.println("Oui");
-  else Serial.println("Non");
+  // Serial.print("Angle: "); Serial.print(currentAngle);
+  // Serial.print(" | Distance: ");
+  // if (d < 0) Serial.print("No echo");
+  // else Serial.print(d);
+  // Serial.print(" cm | Objet detecte: ");
+  // if (d > 0 && d <= DANGER_DIST) Serial.println("Oui");
+  // else Serial.println("Non");
+}
+
+// Envoi pour Processing : angle,distance.
+void sendToProcessing(int d) {
+  if (d < 0) d = 0; // si pas d’écho, 0 cm
+  Serial.print(currentAngle);
+  Serial.print(",");
+  Serial.print(d);
+  Serial.print(".");  // <--- séparateur lu par Processing
+  Serial.flush();     // Force l’envoi immédiat
 }
